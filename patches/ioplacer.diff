@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5abb3c0..15809a7 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -100,6 +100,7 @@ endif()
+ add_dependencies(${BIN_NAME} tclInterfaceWrapper)
+ 
+ target_include_directories(${BIN_NAME} PUBLIC
++        ${TCL_HEADER_DIR}
+         ${Boost_INCLUDE_DIR}
+         ${CMAKE_CURRENT_SOURCE_DIR}/include
+         ${CMAKE_CURRENT_SOURCE_DIR}/third_party
