@@ -20,7 +20,7 @@ nproc=${nproc:-12}
 # -----------------
 # (and matching sources)
 
-TOOLS="${TOOLS:-cudd replace ioplacer opendp route fastroute opensta yosys magic resizer addspacers openroad padring netgen vlogtoverilog}"
+TOOLS="${TOOLS:-cudd replace ioplacer opendp route route_14 fastroute opensta yosys magic resizer addspacers openroad padring netgen vlogtoverilog}"
 
 addspacers_GIT_SRC=https://github.com/RTimothyEdwards/qflow
 addspacers_GIT_HASH=ad92e709bcd6c8604816a6c98cef2e35a841de85
@@ -54,6 +54,9 @@ resizer_GIT_HASH=fdb54f9eaf54e772a6af79181cf71a6d5816807e
 
 route_GIT_SRC=https://github.com/agorararmard/TritonRoute
 route_GIT_HASH=d7f9a061a6e209225b663f69e5013daa33191bae
+
+route_14_GIT_SRC=https://github.com/The-OpenROAD-Project/TritonRoute.git
+route_14_GIT_HASH=1570d785ff1cb28b998e5d2c8c8d24ec76e32dbf
 
 magic_PATH=/home/tnt/sky130/src/magic
 
@@ -231,6 +234,12 @@ function build_route() {
 	cmake_build
 
 	cp _build/TritonRoute "${PREFIX}/bin"
+}
+
+function build_route_14() {
+	cmake_build
+
+	cp _build/TritonRoute "${PREFIX}/bin/TritonRoute14"
 }
 
 function build_fastroute() {

@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bad7943..0fe45fe 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -38,7 +38,7 @@ add_subdirectory(${LEFLIB_HOME})
+ find_package(ZLIB REQUIRED)
+ find_package(BISON REQUIRED)
+ 
+-find_package(Boost 1.68.0 REQUIRED)
++find_package(Boost 1.67.0 REQUIRED)
+ find_package(OpenMP REQUIRED)
+ find_package(Threads REQUIRED)
+ 
