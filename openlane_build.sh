@@ -64,7 +64,7 @@ magic_GIT_SRC=https://github.com/RTimothyEdwards/magic.git
 magic_GIT_HASH=master
 
 netgen_GIT_SRC=git://opencircuitdesign.com/netgen
-netgen_GIT_HASH=18739235a9a1ae901c1bbfed206a9b44ca6a2e97
+netgen_GIT_HASH=8e215d3b66acd6a6fa937cc1d1f594cdb75f3d62
 
 tapcell_GIT_SRC=https://github.com/The-OpenROAD-Project/tapcell.git
 tapcell_GIT_HASH=40b174ecdcbf67a6adebda0eb86e22db22e21e77
