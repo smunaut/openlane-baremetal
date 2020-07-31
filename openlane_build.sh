@@ -15,6 +15,8 @@ TAG=${TAG:-$(date "+build_%Y%m%d_%H%M%S")}
 
 nproc=${nproc:-12}
 
+PYVER="3.7"
+
 
 # List of all tools
 # -----------------
@@ -304,9 +306,16 @@ function build_addspacers() {
 }
 
 function build_openroad() {
+	# Main build
 	cmake_build
-
 	cp _build/src/openroad "${PREFIX}/bin"
+
+	# OpenDB Python bindings
+	pushd "src/OpenDB"
+	cmake_build
+	cp _build/src/swig/python/_opendbpy.so "${PREFIX}/lib/python${PYVER}/site-packages/"
+	cp _build/src/swig/python/opendbpy.py  "${PREFIX}/lib/python${PYVER}/site-packages/"
+	popd
 }
 
 function build_padring() {
@@ -339,6 +348,7 @@ if [ ! -d "${PREFIX}" ]; then
 	mkdir -p "${PREFIX}"
 	mkdir -p "${PREFIX}/bin"
 	mkdir -p "${PREFIX}/lib"
+	mkdir -p "${PREFIX}/lib/python${PYVER}/site-packages/"
 fi
 
 if [ ! -L "${PREFIX}/lib64" ]; then
@@ -354,7 +364,7 @@ BASE="${PREFIX}"
 export PATH=\${PATH}:\${BASE}/bin
 export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:\${BASE}/lib
 export PKG_CONFIG_PATH=\${PKG_CONFIG_PATH}:\${BASE}/lib/pkgconfig
-export PYTHONPATH=\${PYTHONPATH}:\${BASE}/lib/python3.7/site-packages/
+export PYTHONPATH=\${PYTHONPATH}:\${BASE}/lib/python${PYVER}/site-packages/
 export CMAKE_PREFIX_PATH=\${BASE}
 EOF
 fi
