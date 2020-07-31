@@ -60,7 +60,8 @@ route_GIT_HASH=d7f9a061a6e209225b663f69e5013daa33191bae
 route_14_GIT_SRC=https://github.com/The-OpenROAD-Project/TritonRoute.git
 route_14_GIT_HASH=1570d785ff1cb28b998e5d2c8c8d24ec76e32dbf
 
-magic_PATH=/home/tnt/sky130/src/magic
+magic_GIT_SRC=https://github.com/RTimothyEdwards/magic.git
+magic_GIT_HASH=master
 
 netgen_GIT_SRC=git://opencircuitdesign.com/netgen
 netgen_GIT_HASH=18739235a9a1ae901c1bbfed206a9b44ca6a2e97
