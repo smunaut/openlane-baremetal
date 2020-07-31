@@ -5,17 +5,24 @@ set -e
 # Configuration
 # -------------
 
-BASE=/home/tnt/sky130
+OPENLANE_WORKSPACE="${OPENLANE_WORKSPACE:-${HOME}/sky130/openlane_workspace}"
 
-PREFIX=${BASE}/openlane_workspace/_root
-BUILD_PATH=${BASE}/openlane_workspace/_build
-PATCH_PATH=${BASE}/openlane_build/patches
+PREFIX="${OPENLANE_WORKSPACE}/_root"
+BUILD_PATH="${OPENLANE_WORKSPACE}/_build"
+PATCH_PATH="$(dirname `which $0`)/patches"
 
 TAG=${TAG:-$(date "+build_%Y%m%d_%H%M%S")}
 
 nproc=${nproc:-12}
 
 PYVER="3.7"
+
+if [ ! -d "${PATCH_PATH}" ]; then
+	echo "[!] Can't find path directory ( ${PATCH_PATH} )"
+	exit 1
+fi
+
+echo "[+] Installing in ${OPENLANE_WORKSPACE}"
 
 
 # List of all tools
@@ -357,20 +364,24 @@ if [ ! -L "${PREFIX}/lib64" ]; then
 fi
 
 # Create environment file and load it
-if [ ! -f "${PREFIX}/env.sh" ]; then
-	cat > "${PREFIX}/env.sh" << EOF
-BASE="${PREFIX}"
+if [ ! -f "${OPENLANE_WORKSPACE}/env.sh" ]; then
+	cat > "${OPENLANE_WORKSPACE}/env.sh" << EOF
+PREFIX="${PREFIX}"
 
 # Base stuff
-export PATH=\${PATH}:\${BASE}/bin
-export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:\${BASE}/lib
-export PKG_CONFIG_PATH=\${PKG_CONFIG_PATH}:\${BASE}/lib/pkgconfig
-export PYTHONPATH=\${PYTHONPATH}:\${BASE}/lib/python${PYVER}/site-packages/
-export CMAKE_PREFIX_PATH=\${BASE}
+export PATH="\${PREFIX}/bin:\${PATH}"
+export LD_LIBRARY_PATH="\${PREFIX}/lib:\${LD_LIBRARY_PATH}"
+export PKG_CONFIG_PATH="\${PREFIX}/lib/pkgconfig:\${PKG_CONFIG_PATH}"
+export PYTHONPATH="\${PREFIX}/lib/python${PYVER}/site-packages/:\${PYTHONPATH}"
+export CMAKE_PREFIX_PATH="\${PREFIX}"
+
+# OpenLANE
+export OPENLANE_ROOT="${OPENLANE_WORKSPACE}/openlane"
+export PDK_ROOT="${OPENLANE_WORKSPACE}/pdks"
 EOF
 fi
 
-source "${PREFIX}/env.sh"
+source "${OPENLANE_WORKSPACE}/env.sh"
 
 # Create build dir
 if [ ! -d "${BUILD_PATH}" ]; then
