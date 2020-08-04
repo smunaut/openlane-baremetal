@@ -9,7 +9,7 @@ OPENLANE_WORKSPACE="${OPENLANE_WORKSPACE:-${HOME}/sky130/openlane_workspace}"
 
 PREFIX="${OPENLANE_WORKSPACE}/_root"
 BUILD_PATH="${OPENLANE_WORKSPACE}/_build"
-PATCH_PATH="$(dirname `which $0`)/patches"
+PATCH_PATH="$(dirname $(readlink -f $(which $0)))/patches"
 
 TAG=${TAG:-$(date "+build_%Y%m%d_%H%M%S")}
 
