@@ -8,7 +8,7 @@ OpenLANE is made up of three main components :
 ## Install the tools
 
 ```bash
-sudo apt install tcl-dev tk-dev csh libjpeg-dev tcllib
+sudo apt install tcl-dev tk-dev csh libjpeg-dev tcllib python3-pandas
 
 mkdir -p ${HOME}/sky130
 cd ${HOME}/sky130
@@ -42,13 +42,14 @@ export PDK_ROOT=${HOME}/sky130/openlane_workspace/pdks
 cd $PDK_ROOT
 git clone https://github.com/google/skywater-pdk.git
 cd skywater-pdk
-git checkout 4e5e318e0cc578090e1ae7d6f2cb1ec99f363120
 git submodule update --init libraries/sky130_fd_sc_hd/latest
 make sky130_fd_sc_hd
 
 cd $PDK_ROOT
-git clone https://github.com/efabless/open_pdks.git --branch rc2
+git clone https://github.com/RTimothyEdwards/open_pdks.git
 cd open_pdks
+./configure --with-sky130-source="${PDK_ROOT}/skywater-pdk/libraries" --with-sky130-local-path="${PDK_ROOT}"
+cd sky130
 make
 make install-local
 ```
@@ -57,7 +58,7 @@ make install-local
 
 ```bash
 cd ${HOME}/sky130/openlane_workspace/
-git clone https://github.com/efabless/openlane.git --branch rc2
+git clone https://github.com/efabless/openlane.git --branch develop
 ```
 
 ## Using OpenLANE
