@@ -18,7 +18,7 @@ git clone https://github.com/smunaut/openlane-baremetal.git
 cd openlane-baremetal
 ./openlane_build.sh
 
-source ${HOME}/sky130/openlane-workspace/env.sh
+source ${HOME}/sky130/openlane_workspace/env.sh
 ```
 
 ### Build script configurations
