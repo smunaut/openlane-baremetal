@@ -1,20 +1,8 @@
-diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index ccbf3315..7b730fb7 100644
---- a/src/CMakeLists.txt
-+++ b/src/CMakeLists.txt
-@@ -291,6 +291,7 @@ target_link_libraries(openroad
-   antennachecker
-   zutil
-   ${TCL_LIBRARY}
-+  ${CUDD_LIB}
- )
- 
- if (BUILD_OPENPHYSYN)
 diff --git a/src/pdngen/src/PdnGen.tcl b/src/pdngen/src/PdnGen.tcl
 index 754663aa..301b3877 100644
 --- a/src/pdngen/src/PdnGen.tcl
 +++ b/src/pdngen/src/PdnGen.tcl
-@@ -2083,6 +2083,22 @@ proc cut_blocked_areas {tag} {
+@@ -2171,6 +2171,22 @@ proc cut_blocked_areas {tag} {
        set stripe_locs($layer_name,$tag) [::odb::bloatSet $trimmed_set $size_by]
      }
    }
@@ -37,7 +25,7 @@ index 754663aa..301b3877 100644
  }
  
  proc generate_grid_vias {tag net_name} {
-@@ -4475,7 +4491,7 @@ proc opendb_update_grid {} {
+@@ -4587,7 +4603,7 @@ proc opendb_update_grid {} {
    information 15 "Writing to database"
    export_opendb_vias
    export_opendb_specialnets
@@ -57,5 +45,5 @@ index 9dbec31..ba94d0a 100644
 -cmake_minimum_required(VERSION 3.14...3.16)
 +cmake_minimum_required(VERSION 3.13...3.16)
  set(CMAKE_CXX_STANDARD 11)
- 
  # Setting up OpenDB project
+ project(OpenDB VERSION 0.0.1

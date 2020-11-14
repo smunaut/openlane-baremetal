@@ -29,58 +29,45 @@ echo "[+] Installing in ${OPENLANE_WORKSPACE}"
 # -----------------
 # (and matching sources)
 
-TOOLS="${TOOLS:-cudd replace ioplacer opendp route route_14 fastroute opensta yosys magic resizer addspacers openroad padring netgen vlogtoverilog}"
+TOOLS="${TOOLS:-cudd magic netgen opendp openphysyn openroad opensta padring replace route vlogtoverilog yosys}"
 
-addspacers_GIT_SRC=https://github.com/RTimothyEdwards/qflow
-addspacers_GIT_HASH=ad92e709bcd6c8604816a6c98cef2e35a841de85
 
 cudd_GIT_SRC=https://github.com/ivmai/cudd.git
 cudd_GIT_HASH=f54f533303640afd5dbe47a05ebeabb3066f2a25
-
-fastroute_GIT_SRC=https://github.com/The-OpenROAD-Project/FastRoute
-fastroute_GIT_HASH=8a71eea8216c08a506219330b738720f9b4a43f0
-
-ioplacer_GIT_SRC=https://github.com/The-OpenROAD-Project/ioPlacer
-ioplacer_GIT_HASH=a7e0b0b4200c6b34a6c93bbafdf72027284e588a
-
-opendp_GIT_SRC=https://github.com/kareefardi/OpenDP
-opendp_GIT_HASH=master
-
-openroad_GIT_SRC=https://github.com/The-OpenROAD-Project/OpenROAD
-openroad_GIT_HASH=d6e0844670b4f8c8cd654258853eb868945c7665
-
-opensta_GIT_SRC=https://github.com/The-OpenROAD-Project/OpenSTA
-opensta_GIT_HASH=e7d8689f70497eda1ad2686ecfcd628ffccb3a2e
-
-padring_GIT_SRC=https://github.com/YosysHQ/padring
-padring_GIT_HASH=master
-
-replace_GIT_SRC=https://github.com/The-OpenROAD-Project/RePlAce
-replace_GIT_HASH=950b5df4ea6a70fcfb1d496e85cfa63bdd172499
-
-resizer_GIT_SRC=https://github.com/The-OpenROAD-Project/Resizer.git
-resizer_GIT_HASH=fdb54f9eaf54e772a6af79181cf71a6d5816807e
-
-route_GIT_SRC=https://github.com/agorararmard/TritonRoute
-route_GIT_HASH=d7f9a061a6e209225b663f69e5013daa33191bae
-
-route_14_GIT_SRC=https://github.com/The-OpenROAD-Project/TritonRoute.git
-route_14_GIT_HASH=1570d785ff1cb28b998e5d2c8c8d24ec76e32dbf
 
 magic_GIT_SRC=https://github.com/RTimothyEdwards/magic.git
 magic_GIT_HASH=master
 
 netgen_GIT_SRC=git://opencircuitdesign.com/netgen
-netgen_GIT_HASH=8e215d3b66acd6a6fa937cc1d1f594cdb75f3d62
+netgen_GIT_HASH=d2c356f9e21a4552be4088a50cec8adba2162757
 
-tapcell_GIT_SRC=https://github.com/The-OpenROAD-Project/tapcell.git
-tapcell_GIT_HASH=40b174ecdcbf67a6adebda0eb86e22db22e21e77
+opendp_GIT_SRC=https://github.com/kareefardi/OpenDP
+opendp_GIT_HASH=master
+
+openphysyn_GIT_SRC=https://github.com/scale-lab/OpenPhySyn.git
+openphysyn_GIT_HASH=6bb80c5f9312a302b7c29cf1a4ddb93ace47d122
+
+openroad_GIT_SRC=https://github.com/The-OpenROAD-Project/OpenROAD
+openroad_GIT_HASH=e582f2522b320d0b1c43fec129fe03a14b0a7402
+
+opensta_GIT_SRC=https://github.com/The-OpenROAD-Project/OpenSTA
+opensta_GIT_HASH=6deaf6d8fcabc884063941c3046eb8bdb80061b5
+
+padring_GIT_SRC=https://github.com/ax3ghazy/padring
+padring_GIT_HASH=a88faf5a4faef75ff241276599fef81c3653cb70
+
+replace_GIT_SRC=https://github.com/The-OpenROAD-Project/RePlAce
+replace_GIT_HASH=950b5df4ea6a70fcfb1d496e85cfa63bdd172499
+
+route_GIT_SRC=https://github.com/The-OpenROAD-Project/TritonRoute.git
+route_GIT_HASH=a639a8b8c99fb078057d8449aa57333952b06309
 
 vlogtoverilog_GIT_SRC=https://github.com/RTimothyEdwards/qflow
 vlogtoverilog_GIT_HASH=a550469b63e910ede6e3022e2886bca96462c540
 
 yosys_GIT_SRC=https://github.com/YosysHQ/yosys
-yosys_GIT_HASH=347dd01c2f7dff6e8222c5f9d360f84a17c937b5
+yosys_GIT_HASH=84e9fa764803e93c59aff9f10bcc1a5ae2f9f120
+
 
 
 # Helpers
@@ -227,35 +214,22 @@ function build_replace() {
 	cp _build/replace "${PREFIX}/bin"
 }
 
-function build_ioplacer() {
-	cmake_build
-
-	cp _build/ioPlacer "${PREFIX}/bin"
-	cp scripts/replace_ioplace_loop.sh "${PREFIX}/bin"
-}
-
 function build_opendp() {
 	cmake_build
 
 	cp _build/opendp "${PREFIX}/bin"
 }
 
+function build_openphysyn() {
+	cmake_build
+
+	cp _build/Psn "${PREFIX}/bin"
+}
+
 function build_route() {
 	cmake_build
 
 	cp _build/TritonRoute "${PREFIX}/bin"
-}
-
-function build_route_14() {
-	cmake_build
-
-	cp _build/TritonRoute "${PREFIX}/bin/TritonRoute14"
-}
-
-function build_fastroute() {
-	cmake_build
-
-	cp _build/FastRoute "${PREFIX}/bin"
 }
 
 function build_opensta() {
@@ -270,47 +244,10 @@ function build_yosys() {
 	make PREFIX="${PREFIX}" install
 }
 
-function build_tapcell() {
-	# Pre Build SWIG 4.0
-	if [ ! -d "_swig" ]; then
-		mkdir -p "_swig"
-		pushd "_swig"
-		wget http://prdownloads.sourceforge.net/swig/swig-4.0.0.tar.gz
-		tar -xzvf swig-4.0.0.tar.gz 
-		pushd swig-4.0.0
-		./configure --prefix="$(pwd)/../_root"
-		make -j ${nproc}
-		make install
-		popd
-		popd
-	fi
-
-	# Build and install
-	make release SWIG="$(pwd)/_swig/_root/bin/swig"
-
-	cp bin/tapcell "${PREFIX}/bin"
-}
-
 function build_magic() {
 	./configure --prefix="${PREFIX}"
 	make -j ${nproc}
 	make install
-}
-
-function build_resizer() {
-	cmake_build -DCUDD="${PREFIX}"
-
-	cp _build/resizer "${PREFIX}/bin"
-	cp _build/verilog2def "${PREFIX}/bin"
-}
-
-function build_addspacers() {
-	./configure --prefix="${PREFIX}"
-	pushd src
-	make -j ${nproc} addspacers
-	popd
-
-	cp src/addspacers "${PREFIX}/bin"
 }
 
 function build_openroad() {
