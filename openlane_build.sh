@@ -48,7 +48,7 @@ openphysyn_GIT_SRC=https://github.com/scale-lab/OpenPhySyn.git
 openphysyn_GIT_HASH=6bb80c5f9312a302b7c29cf1a4ddb93ace47d122
 
 openroad_GIT_SRC=https://github.com/The-OpenROAD-Project/OpenROAD
-openroad_GIT_HASH=e582f2522b320d0b1c43fec129fe03a14b0a7402
+openroad_GIT_HASH=master
 
 opensta_GIT_SRC=https://github.com/The-OpenROAD-Project/OpenSTA
 opensta_GIT_HASH=6deaf6d8fcabc884063941c3046eb8bdb80061b5
