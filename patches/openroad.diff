@@ -1,5 +1,5 @@
 diff --git a/src/pdngen/src/PdnGen.tcl b/src/pdngen/src/PdnGen.tcl
-index 754663aa..301b3877 100644
+index 6412b850..0a42545d 100644
 --- a/src/pdngen/src/PdnGen.tcl
 +++ b/src/pdngen/src/PdnGen.tcl
 @@ -2171,6 +2171,22 @@ proc cut_blocked_areas {tag} {
@@ -25,6 +25,32 @@ index 754663aa..301b3877 100644
  }
  
  proc generate_grid_vias {tag net_name} {
+@@ -2845,14 +2861,14 @@ proc get {args} {
+ proc get_macro_power_pins {inst_name} {
+   set specification [select_instance_specification $inst_name]
+   if {[dict exists $specification power_pins]} {
+-    return [dict get $specification power_pins]
++    return [subst [dict get $specification power_pins]]
+   }
+   return "VDDPE VDDCE"
+ }
+ proc get_macro_ground_pins {inst_name} {
+   set specification [select_instance_specification $inst_name]
+   if {[dict exists $specification ground_pins]} {
+-    return [dict get $specification ground_pins]
++    return [subst [dict get $specification ground_pins]]
+   }
+   return "VSSE"
+ }
+@@ -3959,7 +3975,7 @@ proc get_macro_blockage_layers {instance} {
+   
+   set specification [select_instance_specification $instance]
+   if {[dict exists $specification blockages]} {
+-    return [dict get $specification blockages]
++    return [subst [dict get $specification blockages]]
+   }
+   return $metal_layers
+ }
 @@ -4587,7 +4603,7 @@ proc opendb_update_grid {} {
    information 15 "Writing to database"
    export_opendb_vias
